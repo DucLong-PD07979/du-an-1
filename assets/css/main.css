@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+    @apply 2xl:px-5 xl:px-5 lg:px-4 md:px-4 sm:px-3 px-3 2xl:max-w-[1300px] xl:max-w-[1140px] md:max-w-[960px] sm:max-w-[720px];
+    margin: 0 auto;
+    width: 100%;
+}
+
+.button-prev,
+.button-next{
+    width: 30px;
+    height: 30px;
+    background-color: #65a30d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.button-next {
+    margin-left: 8px;
+}
+
+.button-next.swiper-button-disabled{
+    opacity: 0.6;
+}
+.button-prev.swiper-button-disabled{
+    opacity: 0.6;
+}
+
