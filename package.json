@@ -11,5 +11,8 @@
     "start": "npx tailwindcss -i ./assets/css/main.css -o ./dist/output.css --watch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.2"
+  }
 }
