@@ -40,40 +40,40 @@
                     <div class="swiper-slide">
                         <a href="" class="">
                             <div class="flex items-center justify-center flex-col p-3 rounded-lg border border-gray-200 hover:border-primary transition-colors">
-                                <img src="https://bizweb.dktcdn.net/100/485/131/themes/906771/assets/danhmuc_1.jpg?1696989442282" alt="">
-                                <h3 class="text-xl text-primary font-bold">Rau củ</h3>
+                                <img src="https://bizweb.dktcdn.net/100/485/131/themes/906771/assets/danhmuc_2.jpg?1696989442282" alt="">
+                                <h3 class="text-xl text-primary font-bold">Trái cây</h3>
                             </div>
                         </a>
                     </div>
                     <div class="swiper-slide">
                         <a href="" class="">
                             <div class="flex items-center justify-center flex-col p-3 rounded-lg border border-gray-200 hover:border-primary transition-colors">
-                                <img src="https://bizweb.dktcdn.net/100/485/131/themes/906771/assets/danhmuc_1.jpg?1696989442282" alt="">
-                                <h3 class="text-xl text-primary font-bold">Rau củ</h3>
+                                <img src="https://bizweb.dktcdn.net/100/485/131/themes/906771/assets/danhmuc_3.jpg?1696989442282" alt="">
+                                <h3 class="text-xl text-primary font-bold">Đồ khô</h3>
                             </div>
                         </a>
                     </div>
                     <div class="swiper-slide">
                         <a href="" class="">
                             <div class="flex items-center justify-center flex-col p-3 rounded-lg border border-gray-200 hover:border-primary transition-colors">
-                                <img src="https://bizweb.dktcdn.net/100/485/131/themes/906771/assets/danhmuc_1.jpg?1696989442282" alt="">
-                                <h3 class="text-xl text-primary font-bold">Rau củ</h3>
+                                <img src="https://bizweb.dktcdn.net/100/485/131/themes/906771/assets/danhmuc_4.jpg?1696989442282" alt="">
+                                <h3 class="text-xl text-primary font-bold">Nước ép</h3>
                             </div>
                         </a>
                     </div>
                     <div class="swiper-slide">
                         <a href="" class="">
                             <div class="flex items-center justify-center flex-col p-3 rounded-lg border border-gray-200 hover:border-primary transition-colors">
-                                <img src="https://bizweb.dktcdn.net/100/485/131/themes/906771/assets/danhmuc_1.jpg?1696989442282" alt="">
-                                <h3 class="text-xl text-primary font-bold">Rau củ</h3>
+                                <img src="https://bizweb.dktcdn.net/100/485/131/themes/906771/assets/danhmuc_6.jpg?1696989442282" alt="">
+                                <h3 class="text-xl text-primary font-bold">Salad</h3>
                             </div>
                         </a>
                     </div>
                     <div class="swiper-slide">
                         <a href="" class="">
                             <div class="flex items-center justify-center flex-col p-3 rounded-lg border border-gray-200 hover:border-primary transition-colors">
-                                <img src="https://bizweb.dktcdn.net/100/485/131/themes/906771/assets/danhmuc_1.jpg?1696989442282" alt="">
-                                <h3 class="text-xl text-primary font-bold">Rau củ</h3>
+                                <img src="https://bizweb.dktcdn.net/100/485/131/themes/906771/assets/danhmuc_8.jpg?1696989442282" alt="">
+                                <h3 class="text-xl text-primary font-bold">Thực phẩm khác</h3>
                             </div>
                         </a>
                     </div>
