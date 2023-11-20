@@ -122,7 +122,7 @@
                 <div class="swiper-wrapper">
                     <!-- Slides -->
                     <div class="swiper-slide">
-                        <a href="" class="">
+                        <a href="?page=product-details" class="">
                             <div class="rounded-lg border border-gray-200 hover:border-primary relative overflow-hidden">
                                 <div class="p-4">
                                     <img class="h-[170px] mt-4" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">

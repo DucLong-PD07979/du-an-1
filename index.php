@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
 </head>
 
 <body>
@@ -30,20 +29,39 @@
         $page = $_GET['page'];
     }
 
+    if(pdo_get_connection()){
+        echo 'kết nối dữ liệu thành công!';
+    } else {
+        echo 'kết nối dữ liệu thách bại!';
+    }
+
     ?>
-    <?php include_once './view/partials/header.php'; ?>
+    <?php checkPageFullLayout($page) ?  include_once './view/partials/header.php' : '' ?>
     <div class="body-wrapp">
         <?php
         switch ($page) {
-            case "";
-
+            case "register":
+                include './view/register.php';
+                break;
+            case "login":
+                include './view/login.php';
+                break;
+            case "checkout":
+                include './view/checkout.php';
+                break;
+            case "product-details":
+                include './view/product-details.php';
+                break;
+            case "cart":
+                include './view/cart.php';
+                break;
             default:
-                // $page = 'trang-chu';
                 include './view/home.php';
         }
         ?>
     </div>
-    <?php include_once './view/partials/footer.php'; ?>
+    <?php checkPageFullLayout($page) ? include_once './view/partials/footer.php' : ''; ?>
+    <script src="./assets/js/main/main.js"></script>
 </body>
 
 </html>

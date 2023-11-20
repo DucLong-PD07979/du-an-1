@@ -1,10 +1,10 @@
 <?php
 session_start();
-    $ROOT_URL = "/";
-    $ASSETS_URL = "$ROOT_URL/assets";
-    $ADMIN_URL = "$ROOT_URL/admin";
-    $SITE_URL = "$ROOT_URL/view";
-    $UPLOADED = "$ROOT_URL/upload";
+$ROOT_URL = "/";
+$ASSETS_URL = "$ROOT_URL/assets";
+$ADMIN_URL = "$ROOT_URL/admin";
+$SITE_URL = "$ROOT_URL/view";
+$UPLOADED = "$ROOT_URL/upload";
 
 // * Định nghĩa đường dẫn chứa ảnh sử dụng trong upload
 $IMAGE_DIR = $_SERVER["DOCUMENT_ROOT"] . "$ROOT_URL/content/images/";
@@ -20,7 +20,8 @@ $MESSAGE = '';
  * @param string $target_dir thư mục lưu file
  * @return tên file upload
  */
-function save_file($fieldname, $target_dir){
+function save_file($fieldname, $target_dir)
+{
     $file_uploaded = $_FILES[$fieldname];
     $file_name = basename($file_uploaded["name"]);
     $target_path = $target_dir . $file_name;
@@ -43,7 +44,7 @@ function add_cookie($name, $value, $day)
  */
 function delete_cookie($name)
 {
-    add_cookie($name,'', -1);
+    add_cookie($name, '', -1);
 }
 /**
  * Đọc giá trị cookie
@@ -70,5 +71,12 @@ function check_login()
     header("location: $SITE_URL/tai_khoan/dang-nhap.php");
 }
 
-
-
+function checkPageFullLayout($pagePath)
+{
+    switch ($pagePath) {
+        case 'checkout':
+            return false;
+        default:
+            return true;
+    }
+}

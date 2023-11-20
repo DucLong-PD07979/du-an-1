@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "website sieu thi mini",
   "main": "index.php",
-  "devDependencies": {
-    "tailwindcss": "^3.3.5"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx tailwindcss -i ./assets/css/main.css -o ./dist/output.css --watch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^3.3.5"
+  }
 }
