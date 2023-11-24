@@ -3,13 +3,13 @@
 <?php
 require_once 'pdo.php';
 
-function danhMuc_insert($ten_loai, $url_hinh, $noi_bat)
+function danhMuc_insert($ten_loai, $url_hinh = '', $noi_bat = 0)
 {
     $sql = "INSERT INTO danhmuc(ten,url_hinh,noi_bat) VALUES(?,?,?)";
     pdo_execute($sql, $ten_loai, $url_hinh, $noi_bat);
 }
 
-function danhMuc_update($ma_loai, $ten_loai, $url_hinh, $noi_bat)
+function danhMuc_update( $ten_loai, $url_hinh, $noi_bat, $ma_loai,)
 {
     $sql = "UPDATE danhmuc SET ten=?, url_hinh=?, noi_bat=? WHERE ma_dm=?";
     pdo_execute($sql, $ten_loai, $url_hinh, $noi_bat, $ma_loai);
