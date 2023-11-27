@@ -1,9 +1,14 @@
 <?php
 //thêm sp
-function insert_sanpham($tensp, $url_hinh, $gia_tien, $mo_ta  = '', $so_luot_xem, $giam_gia, $khuyen_mai_hd = 0, $ma_dm)
+function insert_sanpham($tensp, $url_hinh, $gia_tien, $mo_ta  = '',$giam_gia, $khuyen_mai_hd = 0, $ma_dm)
 {
-    $sql = "INSERT INTO sanpham(ten,url_hinh,gia_tien,mo_ta,so_luot_xem,giam_gia,khuyen_mai_hd,ma_dm) VALUES(?,?,?,?,?,?,?,?)";
-    pdo_execute($sql, $tensp, $url_hinh, $gia_tien, $mo_ta, $so_luot_xem, $giam_gia, $khuyen_mai_hd, $ma_dm);
+    $so_luot_xem = 0;
+    $sql = "INSERT INTO sanpham(ten,url_hinh,gia_tien,mo_ta,giam_gia,khuyen_mai_hd,ma_dm,so_luot_xem) VALUES(?,?,?,?,?,?,?,?)";
+
+//     INSERT INTO sanpham (ten, url_hinh, gia_tien, mo_ta, so_luot_xem,giam_gia,khuyen_mai_hd, ma_dm) VALUES
+// ('Sản phẩm 1', 'url_hinh_1.jpg', 100000, 'Mô tả sản phẩm 1',11,10,1, 1);
+
+    pdo_execute($sql, $tensp, $url_hinh, $gia_tien, $mo_ta, $giam_gia, $khuyen_mai_hd, $ma_dm, $so_luot_xem);
 }
 
 // sửa sp
@@ -29,7 +34,7 @@ function delete_sanpham($ma_sp)
 // load sản phẩm khuyến mãi hấp dẫn
 function load_sanpham_discount_good()
 {
-    $sql = "SELECT * from sanpham where khuyen_mai_hd = 1 order by ma_sp desc limit 0,9";
+    $sql = "SELECT * from sanpham where khuyen_mai_hd = 1 AND giam_gia > 0 order by ma_sp desc limit 0,9";
     $listSanPham_KhuyenMai = pdo_query($sql);
     return  $listSanPham_KhuyenMai;
 }
@@ -73,16 +78,16 @@ function load_sanpham_random()
     return  $listSanPham_random;
 }
 
-function loadall_sanpham($kyw = "", $iddm = 0)
+function loadall_sanpham($kyw = "", $ma_dm = 0)
 {
     $sql = "SELECT * from sanpham where 1";
     if ($kyw != "") {
         $sql .= " and name like '%" . $kyw . "%'";
     }
-    if ($iddm > 0) {
-        $sql .= " and iddm  ='" . $iddm . "'";
+    if ($ma_dm > 0) {
+        $sql .= " and ma_dm  ='" . $ma_dm . "'";
     }
-    $sql .= " order by id desc"; // cách khoảng
+    $sql .= " order by ma_sp desc"; // cách khoảng
     $listsanpham = pdo_query($sql);
     return  $listsanpham;
 }

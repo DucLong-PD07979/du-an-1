@@ -294,11 +294,13 @@ if (isset($_GET['act'])) {
             // kiểm tra xem người dùng có click nào nút add không 
             // $thongbao = ""; // Initialize the variable
             if (isset($_POST['themmoi']) && ($_POST['themmoi'])) {
-                $iddm = $_POST['iddm'];
+                $ma_dm = $_POST['ma_dm'];
                 $tensp = $_POST['tensp'];
                 $giasp = $_POST['giasp'];
-                $mota = $_POST['mota'];
+                $giamGia = $_POST['giam_gia'];
+                $khuyen_mai_hd = $_POST['khuyen_mai_hd'];
                 $hinh = $_FILES['hinh']['name'];
+                $mota = $_POST['mota'];
 
                 if (isset($_FILES['hinh']) && $_FILES['hinh']['error'] === UPLOAD_ERR_OK) {
                     $image = $_FILES['hinh']['name'];
@@ -315,7 +317,7 @@ if (isset($_GET['act'])) {
                     echo "Vui lòng chọn một tệp hình ảnh để tải lên.";
                 }
 
-                // insert_sanpham($tensp, $giasp, $hinh, $mota, $iddm);
+                insert_sanpham($tensp, $hinh, $giasp, $mota, $giamGia, $khuyen_mai_hd, $ma_dm);
                 $thongbao = "Thêm thành công";
             }
             $listdanhmuc = danhMuc_select_all();
@@ -325,42 +327,82 @@ if (isset($_GET['act'])) {
         case 'listsp':
             if (isset($_POST['listok']) && ($_POST['listok'])) {
                 $kyw = $_POST['kyw'];
-                $iddm = $_POST['iddm'];
+                $ma_dm = $_POST['ma_dm'];
             } else {
                 $kyw = "";
-                $iddm = 0;
+                $ma_dm = 0;
             }
             $listdanhmuc = danhMuc_select_all();
-            $listsanpham = loadall_sanpham($kyw, $iddm);
+            $listsanpham = loadall_sanpham($kyw, $ma_dm);
             include "sanpham/list.php";
             break;
 
         case 'xoasp':
-            if ($_GET['id'] && $_GET['id'] > 0) {
-                delete_sanpham($_GET['id']);
+            if ($_GET['ma_sp'] && $_GET['ma_sp'] > 0) {
+                delete_sanpham($_GET['ma_sp']);
             }
             $listsanpham = loadall_sanpham("", 0);
             include "sanpham/list.php";
             break;
 
         case 'suasp':
-            if ($_GET['id'] && $_GET['id'] > 0) {
-                $sanpham = loadone_sanpham($_GET['id']);
+            if ($_GET['ma_sp'] && $_GET['ma_sp'] > 0) {
+                $sanpham = loadone_sanpham($_GET['ma_sp']);
             }
             // $listsanpham = loadall_sanpham("",0);
             $listdanhmuc = danhMuc_select_all();
 
             include "sanpham/update.php";
             break;
+        case 'updatesp':
+            if (isset($_POST["capnhat"]) && ($_POST["capnhat"])) {
+                $ma_sp = $_POST['ma_sp'];
+                $ma_dm = $_POST['ma_dm'];
+                $giasp = $_POST['giasp'];
+                $giamGia = $_POST['giam_gia'];
+                $khuyen_mai_hd = $_POST['khuyen_mai_hd'];
+                $tensp = $_POST['tensp'];
+                $mota = $_POST['mota'];
+                $hinh = $_FILES['hinh']['name'];
 
-            // $thongbao= "Cập nhật thành công".
+                if (isset($_FILES['hinh']) && $_FILES['hinh']['error'] === UPLOAD_ERR_OK) {
+                    $image = $_FILES['hinh']['name'];
+                    $image_tmp = $_FILES['hinh']['tmp_name'];
+
+                    $target_directory = "../upload"; // Đường dẫn đến thư mục mục tiêu
+
+                    move_uploaded_file($image_tmp, $target_directory . "/" . $image);
+                } else {
+                    echo "Vui lòng chọn một tệp hình ảnh để tải lên.";
+                }
+                update_sanpham($ma_sp, $tensp, $hinh, $giasp, $mota, $giamGia, $khuyen_mai_hd, $ma_dm);
+
+                // var_dump($id, $iddm, $tensp, $giasp, $mota, $hinh);
+            }
+
+            $thongbao = "Cập nhật thành công";
             $listsanpham = loadall_sanpham("", 0);
             $listdanhmuc = danhMuc_select_all();
 
             include "sanpham/list.php";
             break;
+        case 'dskh':
+            $listtaikhoan = khachHang_select_all();
+            include "user/list.php";
+            break;
+        // case 'dsbl':
+        //     $listbinhluan = loadall_binhluan(0);
+        //     include "binhluan/list.php";
+        //     break;
 
+        // case 'xoabl':
+        //     if ($_GET['id'] && $_GET['id'] > 0) {
+        //         delete_binh_luan($_GET['id']);
+        //     }
+        //     $listbinhluan = loadall_binhluan(0);
 
+        //     include "binhluan/list.php";
+        //     break;
         default:
             include "home.php";
             break;
