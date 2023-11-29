@@ -34,7 +34,7 @@ function delete_sanpham($ma_sp)
 // load sản phẩm khuyến mãi hấp dẫn
 function load_sanpham_discount_good()
 {
-    $sql = "SELECT * from sanpham where khuyen_mai_hd = 1 AND giam_gia > 0 order by ma_sp desc limit 0,9";
+    $sql = "SELECT * from sanpham where khuyen_mai_hd = 1 AND giam_gia > 0 order by ma_sp asc  limit 0,9";
     $listSanPham_KhuyenMai = pdo_query($sql);
     return  $listSanPham_KhuyenMai;
 }
@@ -42,14 +42,14 @@ function load_sanpham_discount_good()
 // load sản phẩm danh mục rau củ
 function load_sanpham_vegetable()
 {
-    $sql = "SELECT * from sanpham where ma_dm = 1 order by ma_sp desc limit 0,9";
+    $sql = "SELECT * from sanpham where ma_dm = 11 order by ma_sp asc limit 0,9";
     $listSanPham_vegetable = pdo_query($sql);
     return  $listSanPham_vegetable;
 }
 
 // load sản phẩm danh mục trái cây
 function load_sanpham_fruit(){
-    $sql = "SELECT * from sanpham where ma_dm = 2 order by ma_sp desc limit 0,9";
+    $sql = "SELECT * from sanpham where ma_dm = 12 order by ma_sp asc limit 0,9";
     $listSanPham_fruit = pdo_query($sql);
     return  $listSanPham_fruit;
 }
@@ -57,7 +57,7 @@ function load_sanpham_fruit(){
 // load sản phẩm danh mục nước ép
 function load_sanpham_juice()
 {
-    $sql = "SELECT * from sanpham where ma_dm = 3 order by ma_sp desc limit 0,9";
+    $sql = "SELECT * from sanpham where ma_dm = 14 order by ma_sp asc limit 0,9";
     $listSanPham_juice = pdo_query($sql);
     return  $listSanPham_juice;
 }
@@ -65,7 +65,7 @@ function load_sanpham_juice()
 // load sản phẩm danh mục salad
 function load_sanpham_salad()
 {
-    $sql = "SELECT * from sanpham where ma_dm = 4 order by ma_sp desc limit 0,9";
+    $sql = "SELECT * from sanpham where ma_dm = 15 order by ma_sp asc limit 0,9";
     $listSanPham_salad = pdo_query($sql);
     return  $listSanPham_salad;
 }
@@ -73,10 +73,13 @@ function load_sanpham_salad()
 // load sản phẩm danh mục ngẫu nhiên
 function load_sanpham_random()
 {
-    $sql = "SELECT * from sanpham where ma_dm = 1 order by ma_sp desc limit 0,9";
+    $sql = "SELECT * from sanpham where ma_dm = 1 order by ma_sp asc limit 0,9";
     $listSanPham_random = pdo_query($sql);
     return  $listSanPham_random;
 }
+
+
+// desc ==> giảm dần
 
 function loadall_sanpham($kyw = "", $ma_dm = 0)
 {
@@ -103,8 +106,21 @@ function load_sanpham_cungloai($ma_sp, $ma_dm)
 {
     $sql = "SELECT * from sanpham where ma_dm=" . $ma_dm . " AND ma_sp <> " . $ma_sp;
     $listsanpham = pdo_query($sql);
-    return  $listsanpham;
+    return  $listsanpham;   
 }
 
+function update_luotxem_sanpham($ma_sp){
+    
+    $sql = "UPDATE sanpham SET so_luot_xem = so_luot_xem + 1 WHERE  ma_sp = '$ma_sp'";
+    $listsanpham = pdo_query($sql);
+    return  $listsanpham;   
+}
 
+function load_sanpham_daxem(){
+    
+    $sql = "SELECT * from sanpham where so_luot_xem  > 0 order by ma_sp asc limit 0,9";
+    $listsanpham = pdo_query($sql);
+    return  $listsanpham;   
+}
 
+?>

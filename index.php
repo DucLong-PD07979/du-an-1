@@ -50,12 +50,29 @@
                 include './view/checkout.php';
                 break;
             case "product-details":
+                if(isset($_GET['ma_sp'])){
+                    $masp = $_GET['ma_sp'];
+                    update_luotxem_sanpham($masp);
+                    $product = loadone_sanpham($masp);  
+                    extract($product);
+                    $list_sp_cungLoai = load_sanpham_cungloai($ma_sp,$ma_dm);
+                    $list_products_viewed = load_sanpham_daxem();
+                }
                 include './view/product-details.php';
                 break;
             case "cart":
                 include './view/cart.php';
                 break;
             default:
+                $list_danhmuc = danhMuc_select_all();
+                // var_dump($list_danhmuc); hiện thị
+                $list_spkmhd= load_sanpham_discount_good();
+                //   var_dump($list_spkmhd);
+                $list_raucu=load_sanpham_vegetable();
+                //  var_dump($list_raucu);
+                $list_traicay=load_sanpham_fruit();
+                // var_dump($list_traicay);
+                
                 include './view/home.php';
         }
         ?>
