@@ -16,6 +16,7 @@
 
 <body>
     <?php
+    ob_start();
     include 'global.php';
     include 'model/pdo.php';
     include 'model/binhLuan.php';
@@ -24,16 +25,20 @@
     include 'model/sanPham.php';
     include 'model/user.php';
 
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+
     $page = null;
     if (isset($_GET['page']) && $_GET['page'] !== '') {
         $page = $_GET['page'];
     }
 
-    if(pdo_get_connection()){
-        echo 'kết nối dữ liệu thành công!';
-    } else {
-        echo 'kết nối dữ liệu thách bại!';
-    }
+    // if (pdo_get_connection()) {
+    //     echo 'kết nối dữ liệu thành công!';
+    // } else {
+    //     echo 'kết nối dữ liệu thách bại!';
+    // }
 
     ?>
     <?php checkPageFullLayout($page) ?  include_once './view/partials/header.php' : '' ?>
@@ -41,22 +46,123 @@
         <?php
         switch ($page) {
             case "register":
+                if (isset($_POST['register'])) {
+                    $hoTen = $_POST['ho_ten'];
+                    $email = $_POST['email'];
+                    $password = $_POST['password'];
+                    if (!empty($hoTen) && !empty($email) && !empty($password)) {
+                        khachHang_insert($hoTen, $email, $password);
+                        $message = 'bạn đã đăng ký thành công!vui lòng đăng nhập';
+                    }
+                }
                 include './view/register.php';
                 break;
             case "login":
+                if (isset($_POST['login'])) {
+                    $email = $_POST['email'];
+                    $password = $_POST['password'];
+                    $accountLogin = checkemail($email);
+                    if (is_array($accountLogin)) {
+                        $_SESSION['userAccount'] = $accountLogin;
+                        if (isset($_SESSION['userAccount'])) {
+                            header('Location: index.php');
+                        }
+                    } else {
+                        $message = "tài khoản không tồn tại";
+                    }
+                }
                 include './view/login.php';
                 break;
+            case "logout":
+                unset($_SESSION['userAccount']);
+                header('Location: index.php');
+                break;
             case "checkout":
+                $thongBao = '';
+                if (isset($_POST['datHang'])) {
+                    if (!isset($_SESSION['userAccount'])) {
+                        header('Location: index.php?page=login');
+                    }
+
+                    if (sizeof($_SESSION['cart']) <= 0) {
+                        echo 'bạn chưa có sản phẩm trong giỏ hang!';
+                    } else {
+                        $ho_ten = $_POST['ho_ten'];
+                        $email = $_POST['email'];
+                        $sodt = $_POST['phone'];
+                        $diachi = $_POST['diachi'];
+                        $tongTien = $_POST['tongTien'];
+                        // Sử dụng hàm để tạo một ID ngẫu nhiên với độ dài 10 ký tự
+                        $randomId = 'ABC' . generateRandomId(7);
+                        $madh = $randomId;
+                        $matk = $_SESSION['userAccount']['ma_tk'];
+                        donHang_insert($madh, $ho_ten, $matk, $email, $tongTien, $sodt, $diachi);
+                        if (isset($_SESSION['cart'])) {
+                            for ($i = 0; $i < sizeof($_SESSION['cart']); $i++) {
+                                extract($_SESSION['cart'][$i]);
+                                donHang_chi_tiet_insert($madh, $masp, $sl, $tongTien);
+                            }
+                            $thongBao = 'Bạn đã đặt đơn hàng thành công!';
+                        }
+                        unset($_SESSION['cart']);
+                    }
+                }
+                // var_dump($_SESSION['cart']);
                 include './view/checkout.php';
                 break;
             case "product-details":
-                if(isset($_GET['ma_sp'])){
+                $lists_product_random = load_sanpham_random();
+                function trungSanPham($ma_sp)
+                {
+                    $index = null;
+                    for ($i = 0; $i < sizeof($_SESSION['cart']); $i++) {
+                        if ($ma_sp == $_SESSION['cart'][$i]['masp']) {
+                            $index = $i;
+                            break;
+                        }
+                    }
+                    return $index;
+                }
+
+                function update_soLuong($vi_tri, $so_luong)
+                {
+                    if (isset($vi_tri, $so_luong)) {
+                        $_SESSION['cart'][$vi_tri]['sl'] =  $_SESSION['cart'][$vi_tri]['sl'] + $so_luong;
+                        $_SESSION['cart'][$vi_tri]['tongTien'] = $_SESSION['cart'][$vi_tri]['gia'] * $_SESSION['cart'][$vi_tri]['sl'];
+                    }
+                }
+
+                if (isset($_GET['ma_sp'])) {
                     $masp = $_GET['ma_sp'];
                     update_luotxem_sanpham($masp);
-                    $product = loadone_sanpham($masp);  
+                    $product = loadone_sanpham($masp);
                     extract($product);
-                    $list_sp_cungLoai = load_sanpham_cungloai($ma_sp,$ma_dm);
+                    $list_sp_cungLoai = load_sanpham_cungloai($ma_sp, $ma_dm);
                     $list_products_viewed = load_sanpham_daxem();
+
+                    if (isset($_POST['addproduct'])) {
+                        if (!$_SESSION['userAccount']) {
+                            header('Location: index.php?page=login');
+                        } else {
+                            $tensp = $ten;
+                            $hinh = $url_hinh;
+                            $gia = $gia_tien;
+                            $masp = $ma_sp;
+                            $so_luong = $_POST['quantity'];
+                            $tongTien = $so_luong * $gia;
+                            $productItem = array('tensp' => $tensp, 'hinh' => $hinh, 'gia'
+                            => $gia, 'tongTien' => $tongTien, 'masp' => $masp, 'sl' => $so_luong);
+
+                            $cungViTri = trungSanPham($masp);
+                            if (isset($cungViTri)) {
+                                update_soLuong($cungViTri, $so_luong);
+                            } else {
+                                array_push($_SESSION['cart'], $productItem);
+                            }
+                            header('Location: index.php?page=cart');
+                            // var_dump($_SESSION['cart']);
+                        }
+                    }
                 }
                 include './view/product-details.php';
                 break;
@@ -66,18 +172,25 @@
             default:
                 $list_danhmuc = danhMuc_select_all();
                 // var_dump($list_danhmuc); hiện thị
-                $list_spkmhd= load_sanpham_discount_good();
+                $list_spkmhd = load_sanpham_discount_good();
                 //   var_dump($list_spkmhd);
-                $list_raucu=load_sanpham_vegetable();
+                $list_raucu = load_sanpham_vegetable();
                 //  var_dump($list_raucu);
-                $list_traicay=load_sanpham_fruit();
+                $list_traicay = load_sanpham_fruit();
                 // var_dump($list_traicay);
-                
+                // var_dump($_SESSION['userAccount']);
+                // unset($_SESSION['cart']);
+
+
+
+
+
                 include './view/home.php';
         }
         ?>
     </div>
     <?php checkPageFullLayout($page) ? include_once './view/partials/footer.php' : ''; ?>
+    <?php ob_end_flush(); ?>
     <script src="./assets/js/main/main.js"></script>
 </body>
 

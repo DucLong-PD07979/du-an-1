@@ -13,21 +13,27 @@
     </div>
     <div class="flex items-center justify-center">
         <div class="max-w-[400px] w-full mb-7">
-            <form class="">
+            <form class="" action="index.php?page=login" method="post">
                 <div class="flex items-center">
                     <a class="w-full text-center uppercase border-b border-gray-600 block py-1" href="?page=login">Đăng nhập</a>
                     <a class="w-full text-center uppercase border-b border-gray-200 block py-1" href="?page=register">Đăng ký</a>
                 </div>
                 <h3 class="text-center my-4 text-2xl">Đăng nhập</h3>
+                <?php
+                if (isset($message) && $message != '') {
+                    echo $message;
+                    echo '<br>';
+                }
+                ?>
                 <div class="group-input mb-4">
-                    <input type="email" class="p-2 w-full border border-gray-600 rounded" placeholder="email" require>
+                    <input type="email" class="p-2 w-full border border-gray-600 rounded" name="email" placeholder="email" require>
                     <p class="error-mes mt-2 text-red"></p>
                 </div>
                 <div class="group-input mb-4">
-                    <input type="password" class="p-2 w-full border border-gray-600 rounded" placeholder="password" require>
+                    <input type="password" class="p-2 w-full border border-gray-600 rounded" name="password" placeholder="password" require>
                     <p class="error-mes mt-2 text-red"></p>
                 </div>
-                <button type="submit" class="w-full text-white rounded py-3 bg-gray-900 hover:bg-gray-700 transition-colors">Đăng Nhập</button>
+                <button type="submit" name="login" class="w-full text-white rounded py-3 bg-gray-900 hover:bg-gray-700 transition-colors">Đăng Nhập</button>
             </form>
             <a class="my-2 text-center block hover:text-primary" href="#">Quên mật khẩu</a>
             <p class="my-4 text-center">Hoặc đăng nhập bằng</p>

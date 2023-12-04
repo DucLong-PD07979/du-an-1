@@ -1,3 +1,8 @@
+<?php 
+   if ($thongBao != '' && isset($thongBao)){
+      echo $thongBao;
+   }
+?>
 <div class="checkout-wrap">
     <div class="container">
         <form action="" method="post">
@@ -15,19 +20,19 @@
                                 <a href="?page=login" class="text-blue-500">Đăng nhập</a>
                             </div>
                             <div class="group-input mb-4">
-                                <input type="text" class="text-[14px] p-3 outline-none focus:outline-none focus:outline-2 focus:border-0 focus:outline-primary  w-full border border-gray-300 rounded" placeholder="Họ tên" require>
+                                <input type="text" name="ho_ten" class="text-[14px] p-3 outline-none focus:outline-none focus:outline-2 focus:border-0 focus:outline-primary  w-full border border-gray-300 rounded" placeholder="Họ tên" require>
                                 <p class="error-mes mt-2 text-red"></p>
                             </div>
                             <div class="group-input mb-4">
-                                <input type="email" class="text-[14px] p-3 focus:outline-none focus:outline-2 focus:border-0 focus:outline-primary w-full border border-gray-300 rounded" placeholder="Email" require>
+                                <input type="email" name="email" class="text-[14px] p-3 focus:outline-none focus:outline-2 focus:border-0 focus:outline-primary w-full border border-gray-300 rounded" placeholder="Email" require>
                                 <p class="error-mes mt-2 text-red"></p>
                             </div>
                             <div class="group-input mb-4">
-                                <input type="text" class="text-[14px] p-3 focus:outline-none focus:outline-2 focus:border-0 focus:outline-primary w-full border border-gray-300 rounded" placeholder="Số điện thoại" require>
+                                <input type="text" name="phone" class="text-[14px] p-3 focus:outline-none focus:outline-2 focus:border-0 focus:outline-primary w-full border border-gray-300 rounded" placeholder="Số điện thoại" require>
                                 <p class="error-mes mt-2 text-red"></p>
                             </div>
                             <div class="group-input mb-4">
-                                <input type="text" class="text-[14px] p-3 focus:outline-none focus:outline-2 focus:border-0 focus:outline-primary w-full border border-gray-300 rounded" placeholder="Địa chỉ nhận" require>
+                                <input type="text" name="diachi" class="text-[14px] p-3 focus:outline-none focus:outline-2 focus:border-0 focus:outline-primary w-full border border-gray-300 rounded" placeholder="Địa chỉ nhận" require>
                                 <p class="error-mes mt-2 text-red"></p>
                             </div>
                         </div>
@@ -66,42 +71,32 @@
                     </div>
                     <div class="px-6 py-4">
                         <div class="max-h-[400px] border-b border-gray-200">
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="rounded border border-gray-200 p-1 w-[50px] h-[50px] relative">
-                                    <img src="https://bizweb.dktcdn.net/thumb/thumb/100/485/131/products/bot-mi-da-dung-meizan-goi-1kg-201903221403092427.jpg?v=1683193165023" alt="">
-                                    <span class="absolute top-0 right-0 min-w-[16px] h-[16px] text-[10px] flex items-center justify-center bg-blue-400 rounded-full text-white translate-x-[50%] translate-y-[-4px]">1</span>
-                                </div>
-                                <p class="line-clamp-2 pl-3 flex-grow text-sm text-gray-800">Bột mì đa dụng Meizan cao cấp gói 1kg
-                                </p>
-                                <span class="block pl-3 text-sm text-gray-400">20.800đ</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="rounded border border-gray-200 p-1 w-[50px] h-[50px] relative">
-                                    <img src="https://bizweb.dktcdn.net/thumb/thumb/100/485/131/products/bot-mi-da-dung-meizan-goi-1kg-201903221403092427.jpg?v=1683193165023" alt="">
-                                    <span class="absolute top-0 right-0 min-w-[16px] h-[16px] text-[10px] flex items-center justify-center bg-blue-400 rounded-full text-white translate-x-[50%] translate-y-[-4px]">1</span>
-                                </div>
-                                <p class="line-clamp-2 pl-3 flex-grow text-sm text-gray-800">Bột mì đa dụng Meizan cao cấp gói 1kg
-                                </p>
-                                <span class="block pl-3 text-sm text-gray-400">20.800đ</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="rounded border border-gray-200 p-1 w-[50px] h-[50px] relative">
-                                    <img src="https://bizweb.dktcdn.net/thumb/thumb/100/485/131/products/bot-mi-da-dung-meizan-goi-1kg-201903221403092427.jpg?v=1683193165023" alt="">
-                                    <span class="absolute top-0 right-0 min-w-[16px] h-[16px] text-[10px] flex items-center justify-center bg-blue-400 rounded-full text-white translate-x-[50%] translate-y-[-4px]">1</span>
-                                </div>
-                                <p class="line-clamp-2 pl-3 flex-grow text-sm text-gray-800">Bột mì đa dụng Meizan cao cấp gói 1kg
-                                </p>
-                                <span class="block pl-3 text-sm text-gray-400">20.800đ</span>
-                            </div>
+                            <?php
+                            if (isset($_SESSION['cart']) && sizeof($_SESSION['cart']) > 0) :
+                            ?>
+                                <?php foreach ($_SESSION['cart'] as $item) : ?>
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="rounded border border-gray-200 p-1 w-[50px] h-[50px] relative">
+                                            <img src="../upload/<?= $item['hinh'] ?>" alt="">
+                                            <span class="absolute top-0 right-0 min-w-[16px] h-[16px] text-[10px] flex items-center justify-center bg-blue-400 rounded-full text-white translate-x-[50%] translate-y-[-4px]"><?= $item['sl'] ?></span>
+                                        </div>
+                                        <p class="line-clamp-2 pl-3 flex-grow text-sm text-gray-800"><?= $item['tensp'] ?> </p>
+                                        <span class="block pl-3 text-sm text-gray-400"><?= formatMoney($item['tongTien']) ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <p class=" my-2 text-center">Chưa có sản phẩm trong giỏi hàng</p>
+                            <?php endif; ?>
                         </div>
                         <div class="py-4 flex items-center justify-between border-b border-gray-200">
                             <p class="text-gray-500 font-medium">Tổng cộng</p>
-                            <span class="text-lg font-medium text-blue-400">94.700đ</span>
+                            <span class="text-lg font-medium text-blue-400"><?= formatMoney(totalMoneybuyProducts()) ?></span>
+                            <input type="text" name="tongTien" value="<?= totalMoneybuyProducts() ?>" hidden>
                         </div>
 
                         <div class="py-4 flex items-center justify-between">
                             <a href="?page=cart" class="text-sm text-blue-400 hover:text-blue-600">Quay về trang giỏ hàng</a>
-                            <button type="submit" name="dat-hang" class="text-white py-2 px-6 bg-blue-700 transition-colors rounded hover:bg-blue-500">Đặt hàng</button>
+                            <button type="submit" name="datHang" class="text-white py-2 px-6 bg-blue-700 transition-colors rounded hover:bg-blue-500">Đặt hàng</button>
                         </div>
                     </div>
                 </div>

@@ -29,10 +29,19 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                            <div class="absolute rounded-sm top-[125%] z-20 left-0 w-[120px] after:content-[''] after:absolute after:w-[20px] after:rounded-sm after:h-[20px] after:bg-primary after:bottom-[100%] after:left-5 after:rotate-45 after:translate-y-4 after:-z-10 before:content-[''] before:absolute before:bottom-[100%] before:left-0 before:w-full before:h-3 before:z-10 before:bg-transparent hidden group-hover:block">
-                                <a href="?page=register" class="py-2 px-3 block  bg-primary hover:transition-colors hover:bg-gray-200 hover:text-primary">Đăng ký</a>
-                                <a href="?page=login" class="py-2 px-3 block  bg-primary hover:transition-colors hover:bg-gray-200 hover:text-primary">Đăng nhập</a>
-                            </div>
+                            <?php
+                            if (isset($_SESSION['userAccount']) && is_array($_SESSION['userAccount'])) :
+                            ?>
+                                <div class="absolute rounded-sm top-[125%] z-20 left-0 w-[120px] after:content-[''] after:absolute after:w-[20px] after:rounded-sm after:h-[20px] after:bg-primary after:bottom-[100%] after:left-5 after:rotate-45 after:translate-y-4 after:-z-10 before:content-[''] before:absolute before:bottom-[100%] before:left-0 before:w-full before:h-3 before:z-10 before:bg-transparent hidden group-hover:block">
+                                    <p class="py-2 px-3 block  bg-primary hover:transition-colors hover:bg-gray-200 hover:text-primary"><?= $_SESSION['userAccount']['ho_ten'] ?></p>
+                                    <a href="?page=logout" class="py-2 px-3 block  bg-primary hover:transition-colors hover:bg-gray-200 hover:text-primary">Logout</a>
+                                </div>
+                            <?php else : ?>
+                                <div class="absolute rounded-sm top-[125%] z-20 left-0 w-[120px] after:content-[''] after:absolute after:w-[20px] after:rounded-sm after:h-[20px] after:bg-primary after:bottom-[100%] after:left-5 after:rotate-45 after:translate-y-4 after:-z-10 before:content-[''] before:absolute before:bottom-[100%] before:left-0 before:w-full before:h-3 before:z-10 before:bg-transparent hidden group-hover:block">
+                                    <a href="?page=register" class="py-2 px-3 block  bg-primary hover:transition-colors hover:bg-gray-200 hover:text-primary">Đăng ký</a>
+                                    <a href="?page=login" class="py-2 px-3 block  bg-primary hover:transition-colors hover:bg-gray-200 hover:text-primary">Đăng nhập</a>
+                                </div>
+                            <?php endif; ?>
                         </span>
                     </div>
                     <div class="relative flex items-center justify-center bg-primary w-[40px] h-[40px] rounded text-white ml-3 cursor-pointer">
@@ -51,34 +60,44 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                         </svg>
-                        <span class="absolute top-1 left-5 min-w-[14px] h-[14px] text-[10px] flex items-center justify-center bg-red rounded-full ">1</span>
-
+                        <?php
+                        if (isset($_SESSION['cart']) && sizeof($_SESSION['cart']) > 0) :
+                        ?>
+                            <span class="absolute top-1 left-5 min-w-[14px] h-[14px] text-[10px] flex items-center justify-center bg-red rounded-full "><?= sizeof($_SESSION['cart']); ?></span>
+                        <?php endif; ?>
                         <div class="absolute rounded-sm top-[125%] z-20 right-0 w-[350px] after:content-[''] after:absolute after:w-[20px] after:rounded-sm after:h-[20px] after:bg-primary after:bottom-[100%] after:right-2 after:rotate-45 after:translate-y-4 after:-z-10 before:content-[''] before:absolute before:bottom-[100%] before:left-0 before:w-full before:h-3 before:z-10 before:bg-transparent hidden  group-hover:block">
                             <div class="border border-gray-200 text-gray-700 rounded bg-white">
-                                <!-- <p class=" my-2 text-center">Chưa có sản phẩm trong giỏi hàng</p> -->
                                 <form action="" method="post" class="p-2">
                                     <div class=" overflow-y-auto max-h-[360px]">
-                                        <div class="flex items-center pb-3 border-b border-gray-200">
-                                            <img src="https://bizweb.dktcdn.net/thumb/compact/100/485/131/products/bot-mi-da-dung-meizan-goi-1kg-201903221403092427.jpg" alt="" class="w-[100px] h-[70px]">
-                                            <div class="p-2">
-                                                <p class="line-clamp-2 text-sm">Lorem ipsum dolor sit amet consectetur consectetur sconsectetur adipisicing elit.</p>
-                                                <a href="#" class="text-red text-sm my-2 block">Xóa</a>
-                                                <div class="flex justify-between">
-                                                    <span class="text-[12px]">Số lượng:</span>
-                                                    <span class="font-bold text-primary">20.800đ</span>
+                                        <?php
+                                        if (isset($_SESSION['cart']) && sizeof($_SESSION['cart']) > 0) :
+                                        ?>
+                                            <?php foreach ($_SESSION['cart'] as $item) : ?>
+                                                <div class="flex items-center pb-3 border-b border-gray-200">
+                                                    <img src="../../upload/<?= $item['hinh'] ?>" alt="" class="w-[100px] h-[70px]">
+                                                    <div class="p-2 w-full">
+                                                        <p class="line-clamp-2 text-sm"><?= $item['tensp'] ?></p>
+                                                        <a href="#" class="text-red text-sm my-2 block">Xóa</a>
+                                                        <div class="flex justify-between">
+                                                            <span class="text-[12px]">Số lượng: <?= $item['sl'] ?>đ</span>
+                                                            <span class="font-bold text-primary"><?= formatMoney($item['tongTien']) ?></span>
+                                                        </div>
+                                                        <!-- <div class="border border-gray-800 rounded w-fit p-[2px] flex items-center group-control-quantity">
+                                                            <button class="w-[26px] h-[26px] text-white rounded-sm bg-primary flex items-center justify-center" id="btn-reduce-quantity--second" name="reduce" type="button">-</button>
+                                                            <span class="px-[10px] text-gray-800" id="quantity--second">1</span>
+                                                            <input type="text" value="1" id="quantity-value" name="quantity--second" hidden>
+                                                            <button class="w-[26px] h-[26px] text-white rounded-sm bg-primary flex items-center justify-center" id="btn-increase-quantity--second" type="button">+</button>
+                                                        </div> -->
+                                                    </div>
                                                 </div>
-                                                <div class="border border-gray-800 rounded w-fit p-[2px] flex items-center group-control-quantity">
-                                                    <button class="w-[26px] h-[26px] text-white rounded-sm bg-primary flex items-center justify-center" id="btn-reduce-quantity--second" name="reduce" type="button">-</button>
-                                                    <span class="px-[10px] text-gray-800" id="quantity--second">1</span>
-                                                    <input type="text" value="1" id="quantity-value" name="quantity--second" hidden>
-                                                    <button class="w-[26px] h-[26px] text-white rounded-sm bg-primary flex items-center justify-center" id="btn-increase-quantity--second" type="button">+</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            <?php endforeach; ?>
+                                        <?php else : ?>
+                                            <p class=" my-2 text-center">Chưa có sản phẩm trong giỏi hàng</p>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="flex justify-between mt-2">
                                         <p>Tổng tiền: </p>
-                                        <span class="font-bold text-primary">57.5đ</span>
+                                        <span class="font-bold text-primary"><?= formatMoney(totalMoneybuyProducts())?></span>
                                     </div>
                                     <button type="button" name="thanhtoan" id="btn-thanh-toan" class="w-full text-center text-white bg-green-700 rounded py-3 mt-2 hover:bg-green-600 transition-colors">Thanh toán</button>
                                 </form>

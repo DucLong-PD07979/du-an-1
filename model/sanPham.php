@@ -73,7 +73,7 @@ function load_sanpham_salad()
 // load sản phẩm danh mục ngẫu nhiên
 function load_sanpham_random()
 {
-    $sql = "SELECT * from sanpham where ma_dm = 1 order by ma_sp asc limit 0,9";
+    $sql = "SELECT * from sanpham order by ma_sp asc limit 0,4";
     $listSanPham_random = pdo_query($sql);
     return  $listSanPham_random;
 }

@@ -80,3 +80,35 @@ function checkPageFullLayout($pagePath)
             return true;
     }
 }
+
+function totalMoneybuyProducts()
+{
+    if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+        $totalMoney = 0;
+        for ($i = 0; $i < sizeof($_SESSION['cart']); $i++) {
+            $totalMoney = $totalMoney + $_SESSION['cart'][$i]['tongTien'];
+        }
+        return $totalMoney;
+    }
+}
+
+function formatMoney($money, $decimalLength = 2, $unit = 'đ')
+{
+    // if(is_numeric($money) && strpos($money, '.') !== false){
+    //     $decimalLength = 2;
+    // }
+    return number_format($money, $decimalLength, ',', '.') . $unit;
+}
+
+function generateRandomId($length = 10)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomId = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $randomId .= $characters[rand(0, $charactersLength - 1)];
+    }
+
+    return $randomId;
+}

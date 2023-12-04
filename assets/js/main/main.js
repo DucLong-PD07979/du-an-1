@@ -11,13 +11,12 @@ btnPay.addEventListener("click", (e) => {
     window.location.href = "?page=checkout";
     e.stopPropagation();
 });
+let btnReduceQuantity = document.querySelector(
+    ".group-control-quantity #btn-reduce-quantity"
+);
 
 let btnIncreaseQuantity = document.querySelector(
     ".group-control-quantity #btn-increase-quantity"
-);
-
-let btnReduceQuantity = document.querySelector(
-    ".group-control-quantity #btn-reduce-quantity"
 );
 
 let Quantity = document.querySelector("#quantity");
@@ -52,6 +51,8 @@ btnIncreaseQuantity.addEventListener("click", (e) => {
 btnReduceQuantity.addEventListener("click", (e) => {
     reduceQuantity(e);
 });
+
+
 
 // tab show content des - tutorial - comment
 let btnTabAll = document.querySelectorAll("#btn-tab");

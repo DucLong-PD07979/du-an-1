@@ -1,8 +1,8 @@
 <div class="product-details-wrap">
     <div class="min-h-[200px] w-full flex items-center justify-center flex-col mb-7" style="background:linear-gradient(0deg, rgba(0,0,0,0.8), rgba(0,0,0,0.3)), url(../assets/images/breadcrumb.jpg) no-repeat center;">
-        <h3 class="text-[36px] text-white font-sans font-bold mb-3"><?= $ten ?></h3>    
+        <h3 class="text-[36px] text-white font-sans font-bold mb-3"><?= $ten ?></h3>
         <div class="flex items-center justify-center text-white">
-            <a href="#" class="hover:text-primary text-sm">Trang chủ</a>
+            <a href="index.php" class="hover:text-primary text-sm">Trang chủ</a>
             <span class="block px-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -25,25 +25,41 @@
                         <div>
                             <img src="../upload/<?= $url_hinh ?>" alt="">
                         </div>
-                        <form action="">
+                        <form action="index.php?page=product-details&ma_sp=<?= $ma_sp ?>" method="post">
                             <div class="font-sans">
                                 <h4 class="text-[28px] text-primary font-sans font-bold mb-4"><?= $ten ?></h4>
                                 <p class="text-gray-800 font-medium">Tình trạng: <span class="text-primary">Còn hàng</span></p>
                                 <p class="text-gray-800 font-medium">Mã sản phẩm: <span class="text-primary"><?= $ma_sp ?></span></p>
                                 <div class="flex bg-green-100 py-4 px-6 items-center rounded my-3">
-                                    <span class="text-2xl text-primary mr-4 font-bold"><?= $gia_tien ?>đ</span>
-                                    <span class="text-gray-500 line-through text-sm font-bold">13.500₫ </span>      
+                                    <span class="text-2xl text-primary mr-4 font-bold"><?= formatMoney($gia_tien) ?></span>
+                                    <span class="text-gray-500 line-through text-sm font-bold">13.500₫ </span>
                                 </div>
                                 <p class="text-sm text-gray-800 font-bold mb-1">Số lượng:</p>
                                 <div class="border border-gray-800 rounded w-fit p-[2px] flex items-center group-control-quantity">
                                     <button class="w-[36px] h-[36px] text-white rounded-sm
                                  bg-primary flex items-center justify-center" id="btn-reduce-quantity" name="reduce" type="button">-</button>
                                     <span class="px-[26px] text-gray-800" id="quantity">1</span>
+                                    <!-- <?php foreach ($_SESSION['cart'] as $item) : ?>
+                                        <?php
+                                                $checkTrungSp = null;
+                                                if ($item['masp'] == $ma_sp) {
+                                                    $checkTrungSp = true;
+                                                }
+                                        ?>
+                                    <?php endforeach; ?>
+                                    <?php
+                                    if ($checkTrungSp) :
+                                    ?>
+                                        <input type="text" value="1" id="quantity-value" name="quantity">
+                                    <?php else : ?>
+                                        <p class=" my-2 text-center">Chưa có sản phẩm trong giỏi hàng</p>
+                                    <?php endif; ?> -->
+
                                     <input type="text" value="1" id="quantity-value" name="quantity" hidden>
                                     <button class="w-[36px] h-[36px] text-white rounded-sm
                                  bg-primary flex items-center justify-center" id="btn-increase-quantity" type="button">+</button>
                                 </div>
-                                <button type="submit" name="add-product" class="group border-2 border-primary flex items-center bg-white rounded mt-3 w-full">
+                                <button type="submit" name="addproduct" class="group border-2 border-primary flex items-center bg-white rounded mt-3 w-full">
                                     <span class=" flex min-w-[68px] h-full items-center justify-center text-gray-800">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
@@ -74,7 +90,7 @@
                             <div class="show-content text-sm text-gray-800">
                                 <div class="tab-1">
                                     <div>
-                                    <?= $mo_ta ?>
+                                        <?= $mo_ta ?>
                                         <!-- Kim chi Bibigo được chế biến từ cải thảo tươi cùng với các nguyên liệu tự nhiên qua quá trình lên men, mang đến hương vị đúng chuẩn kim chi truyền thống Hàn Quốc. Kim chi cải thảo cắt lát Bibigo Ông Kim's gói 100g có thể dùng kim chi để nấu canh hoặc ăn kèm với cơm, mì, các món nướng BBQ. -->
                                     </div>
                                 </div>
@@ -107,17 +123,16 @@
                                             <p class="text-sm mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente facilis? <span class="text-primary ml-1 font-medium ">ngày : 15/11/2023</span></p>
                                         </div>
                                         <div class="rounded border border-gray-300 p-2 mt-3">
-                                            <form action="">
+                                            <form action="index.php?page=product-details&ma_sp=<?= $ma_sp ?>" method="post">
                                                 <div class="flex justify-between">
                                                     <img src="https://yt3.ggpht.com/yti/ADpuP3PEbGAeHcAon4Q7a_jYa7CEU3VLUD1GC4PeuQ=s88-c-k-c0x00ffffff-no-rj-mo" alt="" class="w-[40px] h-[40px] rounded-full">
-                                                    <button type="submit" class="hover:bg-gray-500 bg-gray-600 text-white py-2 px-4 rounded" name="binh-luan"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <button type="submit" class="hover:bg-gray-500 bg-gray-600 text-white py-2 px-4 rounded" name="binhluan"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                                                         </svg>
                                                     </button>
                                                 </div>
                                                 <textarea class="w-full mt-3 p-2 outline-none border
-                                                 border-gray-200 rounded" name="content-bl" id="" 
-                                                 cols="30" rows="6" placeholder="your message..."></textarea>
+                                                 border-gray-200 rounded" name="content-bl" id="" cols="30" rows="6" placeholder="your message..."></textarea>
                                             </form>
                                         </div>
                                     </div>
@@ -154,35 +169,33 @@
                             <!-- Additional required wrapper -->
                             <div class="swiper-wrapper">
                                 <!-- Slides -->
-                                <?php foreach($list_sp_cungLoai as $item): ?> 
-                           
-                           <div class="swiper-slide">
+                                <?php foreach ($list_sp_cungLoai as $item) : ?>
 
-                               <a href="?page=product-details&ma_sp=<?= $item['ma_sp']?>" class="">
-                               <div class="rounded-lg border border-gray-200 hover:border-primary relative overflow-hidden">
-                                   <div class="p-4">
-                                       <img class="h-[170px] mt-4" src="../upload/<?= $item['url_hinh'] ?>"  alt="">
-                                   </div>
-                                   <div class="p-4">
-                                       <h4 class="text-gray-800 line-clamp-2"><?= $item['ten']?></h4>
-                                       <span class="text-gray-800 mr-2 font-semibold text-sm"><?=$item['gia_tien']?>đ</span>
-                                       <span class="text-gray-400 line-through mr-2 text-sm">
-                                       <?= 
-                                       //số thâpj phân
-                                       $giaGoc = round($item['gia_tien'] / (100 - $item['giam_gia']) * 100,3);
-                                       ?> 
-                                       đ
-                                       </span>
-                                   </div>
-                                   <?php 
-                                       if($item['giam_gia'] > 0){
-                                         echo '<div class="absolute left-0 top-0 bg-red py-1 px-8 rounded-tl-lg rounded-br-lg text-white font-bold text-xs">' .$item['giam_gia'] . '%</div>';
-                                       }
-                                    ?>
-                               </div>
-                               </a>
-                           </div>
-                           <?php endforeach; ?>
+                                    <div class="swiper-slide">
+
+                                        <a href="?page=product-details&ma_sp=<?= $item['ma_sp'] ?>" class="">
+                                            <div class="rounded-lg border border-gray-200 hover:border-primary relative overflow-hidden">
+                                                <div class="p-4">
+                                                    <img class="h-[170px] mt-4" src="../upload/<?= $item['url_hinh'] ?>" alt="">
+                                                </div>
+                                                <div class="p-4">
+                                                    <h4 class="text-gray-800 line-clamp-2"><?= $item['ten'] ?></h4>
+                                                    <span class="text-gray-800 mr-2 font-semibold text-sm"><?= formatMoney($item['gia_tien']); ?></span>
+                                                    <span class="text-gray-400 line-through mr-2 text-sm">
+                                                        <?=
+                                                        $giaGoc = formatMoney($item['gia_tien'] / (100 - $item['giam_gia']) * 100);
+                                                        ?>
+                                                    </span>
+                                                </div>
+                                                <?php
+                                                if ($item['giam_gia'] > 0) {
+                                                    echo '<div class="absolute left-0 top-0 bg-red py-1 px-8 rounded-tl-lg rounded-br-lg text-white font-bold text-xs">' . $item['giam_gia'] . '%</div>';
+                                                }
+                                                ?>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -215,33 +228,32 @@
                             <!-- Additional required wrapper -->
                             <div class="swiper-wrapper">
                                 <!-- Slides -->
-                                <?php foreach($list_products_viewed as $item): ?> 
-                           <div class="swiper-slide">
-                               <a href="?page=product-details&ma_sp=<?= $item['ma_sp']?>" class="">
-                               <div class="rounded-lg border border-gray-200 hover:border-primary relative overflow-hidden">
-                                   <div class="p-4">
-                                       <img class="h-[170px] mt-4" src="../upload/<?= $item['url_hinh'] ?>"  alt="">
-                                   </div>
-                                   <div class="p-4">
-                                       <h4 class="text-gray-800 line-clamp-2"><?= $item['ten']?></h4>
-                                       <span class="text-gray-800 mr-2 font-semibold text-sm"><?=$item['gia_tien']?>đ</span>
-                                       <span class="text-gray-400 line-through mr-2 text-sm">
-                                       <?= 
-                                       //số thâpj phân
-                                       $giaGoc = round($item['gia_tien'] / (100 - $item['giam_gia']) * 100,3);
-                                       ?> 
-                                       đ
-                                       </span>
-                                   </div>
-                                   <?php 
-                                       if($item['giam_gia'] > 0){
-                                         echo '<div class="absolute left-0 top-0 bg-red py-1 px-8 rounded-tl-lg rounded-br-lg text-white font-bold text-xs">' .$item['giam_gia'] . '%</div>';
-                                       }
-                                    ?>
-                               </div>
-                               </a>
-                           </div>
-                           <?php endforeach; ?>
+                                <?php foreach ($list_products_viewed as $item) : ?>
+                                    <div class="swiper-slide">
+                                        <a href="?page=product-details&ma_sp=<?= $item['ma_sp'] ?>" class="">
+                                            <div class="rounded-lg border border-gray-200 hover:border-primary relative overflow-hidden">
+                                                <div class="p-4">
+                                                    <img class="h-[170px] mt-4" src="../upload/<?= $item['url_hinh'] ?>" alt="">
+                                                </div>
+                                                <div class="p-4">
+                                                    <h4 class="text-gray-800 line-clamp-2"><?= $item['ten'] ?></h4>
+                                                    <span class="text-gray-800 mr-2 font-semibold text-sm"><?= formatMoney($item['gia_tien']); ?></span>
+                                                    <span class="text-gray-400 line-through mr-2 text-sm">
+                                                        <?=
+                                                        //số thâpj phân
+                                                        $giaGoc = formatMoney($item['gia_tien'] / (100 - $item['giam_gia']) * 100);
+                                                        ?>
+                                                    </span>
+                                                </div>
+                                                <?php
+                                                if ($item['giam_gia'] > 0) {
+                                                    echo '<div class="absolute left-0 top-0 bg-red py-1 px-8 rounded-tl-lg rounded-br-lg text-white font-bold text-xs">' . $item['giam_gia'] . '%</div>';
+                                                }
+                                                ?>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -311,160 +323,58 @@
                             <div class="swiper-wrapper">
                                 <!-- Slides -->
                                 <div class="swiper-slide">
-                                    <div>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
+                                    <?php foreach ($lists_product_random as $item) : ?>
+                                        <div>
+                                            <a href="?page=product-details&ma_sp=<?= $item['ma_sp'] ?>" class="block mb-4">
+                                                <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
+                                                    <div class="p-2">
+                                                        <img class="h-[70px]" src="../upload/<?= $item['url_hinh'] ?>" alt="">
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <h4 class="text-gray-800 line-clamp-2"><?= $item['ten'] ?></h4>
+                                                        <span class="text-gray-800 mr-2 font-semibold text-sm"><?= $item['gia_tien'] ?></span>
+                                                        <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
+                                                    </div>
                                                 </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
-                                                </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
-                                                </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
-                                                </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
                                 </div>
                                 <div class="swiper-slide">
-                                    <div>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
+                                    <?php foreach ($lists_product_random as $item) : ?>
+                                        <div>
+                                            <a href="?page=product-details&ma_sp=<?= $item['ma_sp'] ?>" class="block mb-4">
+                                                <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
+                                                    <div class="p-2">
+                                                        <img class="h-[70px]" src="../upload/<?= $item['url_hinh'] ?>" alt="">
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <h4 class="text-gray-800 line-clamp-2"><?= $item['ten'] ?></h4>
+                                                        <span class="text-gray-800 mr-2 font-semibold text-sm"><?= $item['gia_tien'] ?></span>
+                                                        <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
+                                                    </div>
                                                 </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
-                                                </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
-                                                </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
-                                                </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
                                 </div>
                                 <div class="swiper-slide">
-                                    <div>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
+                                    <?php foreach ($lists_product_random as $item) : ?>
+                                        <div>
+                                            <a href="?page=product-details&ma_sp=<?= $item['ma_sp'] ?>" class="block mb-4">
+                                                <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
+                                                    <div class="p-2">
+                                                        <img class="h-[70px]" src="../upload/<?= $item['url_hinh'] ?>" alt="">
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <h4 class="text-gray-800 line-clamp-2"><?= $item['ten'] ?></h4>
+                                                        <span class="text-gray-800 mr-2 font-semibold text-sm"><?= $item['gia_tien'] ?></span>
+                                                        <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
+                                                    </div>
                                                 </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
-                                                </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
-                                                </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="" class="block mb-4">
-                                            <div class="rounded-lg flex items-center border border-gray-200 hover:border-primary relative overflow-hidden">
-                                                <div class="p-2">
-                                                    <img class="h-[70px]" src="https://bizweb.dktcdn.net/thumb/large/100/485/131/products/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg?v=1683194702540" alt="">
-                                                </div>
-                                                <div class="p-2">
-                                                    <h4 class="text-gray-800 line-clamp-2">Xà lách búp mỡ</h4>
-                                                    <span class="text-gray-800 mr-2 font-semibold text-sm">16.000đ</span>
-                                                    <span class="text-gray-400 line-through mr-2 text-sm">16.000đ</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
