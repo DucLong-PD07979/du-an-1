@@ -179,6 +179,8 @@
             case "search":
                 if(isset($_GET['keys'])){
                     $productSearched = loadall_sanpham($_GET['keys'],0);
+                } else if(isset($_GET['madm'])){
+                    $productSearched = loadall_sanpham('', $_GET['madm']);
                 }
                 include './view/search-products.php';
                 break;
@@ -202,7 +204,7 @@
     </div>
     <?php checkPageFullLayout($page) ? include_once './view/partials/footer.php' : ''; ?>
     <?php ob_end_flush(); ?>
-    <!-- <script src="./assets/js/main/main.js"></script> -->
+    <script src="./assets/js/main/main.js"></script>
 </body>
 
 </html>

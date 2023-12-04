@@ -67,7 +67,7 @@
                 </div>
                 <div class="border-l border-gray-200 h-screen">
                     <div class="px-6 py-4 border-b border-gray-200">
-                        <p class="font-bold">Đơn hàng (<?= sizeof($_SESSION['cart']); ?> sản phẩm)</p>
+                        <p class="font-bold">Đơn hàng (<?= sizeof($_SESSION['cart']) > 0 ? sizeof($_SESSION['cart']) : 0; ?> sản phẩm)</p>
                     </div>
                     <div class="px-6 py-4">
                         <div class="max-h-[400px] border-b border-gray-200">
