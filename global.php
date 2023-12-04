@@ -112,3 +112,23 @@ function generateRandomId($length = 10)
 
     return $randomId;
 }
+
+function trungSanPham($ma_sp)
+{
+    $index = null;
+    for ($i = 0; $i < sizeof($_SESSION['cart']); $i++) {
+        if ($ma_sp == $_SESSION['cart'][$i]['masp']) {
+            $index = $i;
+            break;
+        }
+    }
+    return $index;
+}
+
+function update_soLuong($vi_tri, $so_luong)
+{
+    if (isset($vi_tri, $so_luong)) {
+        $_SESSION['cart'][$vi_tri]['sl'] =  $_SESSION['cart'][$vi_tri]['sl'] + $so_luong;
+        $_SESSION['cart'][$vi_tri]['tongTien'] = $_SESSION['cart'][$vi_tri]['gia'] * $_SESSION['cart'][$vi_tri]['sl'];
+    }
+}

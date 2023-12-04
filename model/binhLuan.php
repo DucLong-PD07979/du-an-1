@@ -23,3 +23,10 @@ function binhLuan_select_all()
     $sql = "SELECT * FROM binhluan";
     return pdo_query($sql);
 }
+
+function binhLuan_select_with_masp($ma_sp)
+{
+    $sql = "SELECT * FROM binhluan  WHERE ma_sp=?";
+    return pdo_query($sql, $ma_sp);
+}
+

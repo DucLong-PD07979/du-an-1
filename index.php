@@ -96,7 +96,8 @@
                         $randomId = 'ABC' . generateRandomId(7);
                         $madh = $randomId;
                         $matk = $_SESSION['userAccount']['ma_tk'];
-                        donHang_insert($madh, $ho_ten, $matk, $email, $tongTien, $sodt, $diachi);
+                        $currentDateTime = date("Y-m-d H:i:s");
+                        donHang_insert($madh, $ho_ten, $matk, $email, $tongTien, $sodt, $diachi,$currentDateTime);
                         if (isset($_SESSION['cart'])) {
                             for ($i = 0; $i < sizeof($_SESSION['cart']); $i++) {
                                 extract($_SESSION['cart'][$i]);
@@ -112,25 +113,6 @@
                 break;
             case "product-details":
                 $lists_product_random = load_sanpham_random();
-                function trungSanPham($ma_sp)
-                {
-                    $index = null;
-                    for ($i = 0; $i < sizeof($_SESSION['cart']); $i++) {
-                        if ($ma_sp == $_SESSION['cart'][$i]['masp']) {
-                            $index = $i;
-                            break;
-                        }
-                    }
-                    return $index;
-                }
-
-                function update_soLuong($vi_tri, $so_luong)
-                {
-                    if (isset($vi_tri, $so_luong)) {
-                        $_SESSION['cart'][$vi_tri]['sl'] =  $_SESSION['cart'][$vi_tri]['sl'] + $so_luong;
-                        $_SESSION['cart'][$vi_tri]['tongTien'] = $_SESSION['cart'][$vi_tri]['gia'] * $_SESSION['cart'][$vi_tri]['sl'];
-                    }
-                }
 
                 if (isset($_GET['ma_sp'])) {
                     $masp = $_GET['ma_sp'];
@@ -163,13 +145,47 @@
                             // var_dump($_SESSION['cart']);
                         }
                     }
+
+                    $binhLuanSp = binhLuan_select_with_masp($masp);
+                    if(isset($_POST['binhluan']) && $_POST['content-bl'] != ''){
+                        if (!$_SESSION['userAccount']) {
+                            header('Location: index.php?page=login');
+                        } else {
+                            $noiDung = $_POST['content-bl'];
+                            $masp = $ma_sp;
+                            $matk = $_SESSION['userAccount']['ma_tk'];
+                            $currentDateTime = date("Y-m-d H:i:s");
+                            binhLuan_insert($noiDung,$currentDateTime,$masp,$matk);
+                            unset($_POST['binhluan']);
+                        }
+                    }
                 }
                 include './view/product-details.php';
                 break;
             case "cart":
+                $cart = $_SESSION['cart'];
+                if(isset($_GET['act']) && $_GET['act'] == 'xoa' && isset($_GET['ma_sp']) && $_GET['ma_sp'] > 0){
+                    $masp = $_GET['ma_sp'];
+                    for($i = 0; $i < sizeof($cart); $i++){
+                        if($masp ==$cart[$i]['masp']){
+                            array_splice($cart, $i, 1);
+                            $_SESSION['cart'] = $cart;
+                        }
+                    }
+                    header('location: index.php?page=cart');
+                }
                 include './view/cart.php';
                 break;
+            case "search":
+                if(isset($_GET['keys'])){
+                    $productSearched = loadall_sanpham($_GET['keys'],0);
+                }
+                include './view/search-products.php';
+                break;
             default:
+                if(isset($_POST['search-products'])){
+                    header('location: index.php?page=search&keys='. $_POST['keys-filter'] .'');
+                }
                 $list_danhmuc = danhMuc_select_all();
                 // var_dump($list_danhmuc); hiện thị
                 $list_spkmhd = load_sanpham_discount_good();
@@ -180,18 +196,13 @@
                 // var_dump($list_traicay);
                 // var_dump($_SESSION['userAccount']);
                 // unset($_SESSION['cart']);
-
-
-
-
-
                 include './view/home.php';
         }
         ?>
     </div>
     <?php checkPageFullLayout($page) ? include_once './view/partials/footer.php' : ''; ?>
     <?php ob_end_flush(); ?>
-    <script src="./assets/js/main/main.js"></script>
+    <!-- <script src="./assets/js/main/main.js"></script> -->
 </body>
 
 </html>

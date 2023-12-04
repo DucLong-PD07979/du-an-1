@@ -117,10 +117,11 @@
                                     <div>
                                         <h3 class="text-gray-700 text-lg">Bình luận</h3>
                                         <div>
-                                            <p class="text-sm mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente facilis explicabo qui tenetur sunt temporibus praesentium corrupti eaque quidem? Eius? <span class="text-primary ml-1 font-medium ">ngày : 15/11/2023</span></p>
-                                            <p class="text-sm mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente facilis? <span class="text-primary ml-1 font-medium ">ngày : 15/11/2023</span></p>
-                                            <p class="text-sm mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente facilis? <span class="text-primary ml-1 font-medium ">ngày : 15/11/2023</span></p>
-                                            <p class="text-sm mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente facilis? <span class="text-primary ml-1 font-medium ">ngày : 15/11/2023</span></p>
+                                            <p class="text-sm mb-1">Sản phẩm rất tốt , đánh giá 5 sao cho sản phẩm <span class="text-primary ml-1 font-medium ">ngày : 15/11/2023</span></p>
+                                            <p class="text-sm mb-1">Tôi đã sử dụng thử và cảm thấy rất tốt <span class="text-primary ml-1 font-medium ">ngày : 15/11/2023</span></p>
+                                            <?php foreach ($binhLuanSp as $item) : ?>
+                                                <p class="text-sm mb-1"> <?= $item['noi_dung'] ?> <span class="text-primary ml-1 font-medium ">ngày : <?= $item['ngay_bl'] ?></span></p>
+                                            <?php endforeach; ?>
                                         </div>
                                         <div class="rounded border border-gray-300 p-2 mt-3">
                                             <form action="index.php?page=product-details&ma_sp=<?= $ma_sp ?>" method="post">

@@ -29,7 +29,7 @@
                                         <img src="../upload/<?= $item['hinh'] ?>" alt="" class="w-[70px] h-[70px]">
                                         <div>
                                             <p><?= $item['tensp'] ?></p>
-                                            <a href="#" class="font-semibold text-primary">xóa</a>
+                                            <a href="index.php?page=cart&act=xoa&ma_sp=<?= $item['masp'] ?>" class="font-semibold text-primary">xóa</a>
                                         </div>
                                     </div>
                                 </th>

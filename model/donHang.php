@@ -1,10 +1,9 @@
 <?php
 require_once 'pdo.php';
-function donHang_insert($ma_dh, $ho_ten, $ma_tk, $email, $tong_tien, $so_dien_thoai, $dia_chi_nhan)
+function donHang_insert($ma_dh, $ho_ten, $ma_tk, $email, $tong_tien, $so_dien_thoai, $dia_chi_nhan,$ngayMua)
 {
-
-    $sql = "INSERT INTO hoadon(ma_hd,ho_ten,email,tong_tien,so_dien_thoai,dia_chi_nhan,ma_tk) VALUES(?,?,?,?,?,?,?)";
-    pdo_execute($sql, $ma_dh, $ho_ten, $email, $tong_tien, $so_dien_thoai, $dia_chi_nhan, $ma_tk);
+    $sql = "INSERT INTO hoadon(ma_hd,ho_ten,email,tong_tien,so_dien_thoai,dia_chi_nhan,ngay_mua,ma_tk) VALUES(?,?,?,?,?,?,?,?)";
+    pdo_execute($sql, $ma_dh, $ho_ten, $email, $tong_tien, $so_dien_thoai, $dia_chi_nhan, $ngayMua, $ma_tk);
 }
 
 // function donHang_update($ma_loai, $ten_loai)

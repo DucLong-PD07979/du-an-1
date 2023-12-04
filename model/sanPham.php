@@ -85,7 +85,7 @@ function loadall_sanpham($kyw = "", $ma_dm = 0)
 {
     $sql = "SELECT * from sanpham where 1";
     if ($kyw != "") {
-        $sql .= " and name like '%" . $kyw . "%'";
+        $sql .= " and ten like '%" . $kyw . "%'";
     }
     if ($ma_dm > 0) {
         $sql .= " and ma_dm  ='" . $ma_dm . "'";
