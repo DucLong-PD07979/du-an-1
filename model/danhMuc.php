@@ -1,27 +1,47 @@
+
+
 <?php
+require_once 'pdo.php';
 
-function insert_danhmuc($tenloai,$hinh){
-    $sql=" INSERT INTO danhmuc(ten,url_hinh) VALUES ('$tenloai','$hinh')";  
-    pdo_execute($sql);
-}
-
-function delete_danhmuc($id){
-    $sql= "DELETE  FROM danhmuc where id=".$id;
-    pdo_execute($sql);
-}
-function loadall_danhmuc(){
-    $sql= "SELECT * FROM danhmuc order by id desc";
-    $listdanhmuc = pdo_query($sql);
-    return $listdanhmuc;
-}
-function loadone_danhmuc($id){
-    $sql = "SELECT * FROM danhmuc where id=".$id;
-            $dm=pdo_query_one($sql);
-            return $dm;
-}
-function update_danhmuc($id,$tenloai){
-    $sql="UPDATE danhmuc set name='".$tenloai."' where id=".$id;  
-    pdo_execute($sql);
+function danhMuc_insert($ten_loai, $url_hinh = '', $noi_bat = 0)
+{
+    $sql = "INSERT INTO danhmuc(ten,url_hinh,noi_bat) VALUES(?,?,?)";
+    pdo_execute($sql, $ten_loai, $url_hinh, $noi_bat);
 }
 
+function danhMuc_update( $ten_loai, $url_hinh, $noi_bat, $ma_loai,)
+{
+    $sql = "UPDATE danhmuc SET ten=?, url_hinh=?, noi_bat=? WHERE ma_dm=?";
+    pdo_execute($sql, $ten_loai, $url_hinh, $noi_bat, $ma_loai);
+}
+
+function danhMuc_delete($ma_loai)
+{
+    $sql = "DELETE FROM danhmuc WHERE ma_dm=?";
+    if (is_array($ma_loai)) {
+        foreach ($ma_loai as $ma) {
+            pdo_execute($sql, $ma);
+        }
+    } else {
+        pdo_execute($sql, $ma_loai);
+    }
+}
+
+function danhMuc_select_all()
+{
+    $sql = "SELECT * FROM danhmuc";
+    return pdo_query($sql);
+}
+
+function danhMuc_select_by_id($ma_loai)
+{
+    $sql = "SELECT * FROM danhmuc WHERE ma_dm=?";
+    return pdo_query_one($sql, $ma_loai);
+}
+
+function danhMuc_exist($ma_loai)
+{
+    $sql = "SELECT count(*) FROM danhmuc WHERE ma_dm=?";
+    return pdo_query_value($sql, $ma_loai) > 0;
+}
 ?>
